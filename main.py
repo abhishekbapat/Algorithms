@@ -8,7 +8,7 @@ def tester():
     for i in range(10000):
         inp.append(random.randint(0, 20000))
     start = datetime.now()
-    ans = sorters.merge_sort(inp)
+    ans = sorters.heap_sort(inp)
     end = datetime.now()
     print("Report:")
     print(f"Start time: {start}")
