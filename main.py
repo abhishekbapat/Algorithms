@@ -6,9 +6,10 @@ import Lib.sorters as sorters
 def tester():
     inp = []
     for i in range(10000):
-        inp.append(random.randint(0, 20000))
+        inp.append(random.randint(0, 2000000))
+    max_inp = max(inp)
     start = datetime.now()
-    ans = sorters.heap_sort(inp)
+    ans = sorters.radix_sort(inp, arr_max=max_inp)
     end = datetime.now()
     print("Report:")
     print(f"Start time: {start}")

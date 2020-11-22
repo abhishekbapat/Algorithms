@@ -3,7 +3,7 @@ def insertion_sort(input_arr) -> list: # just remove output_arr and directly mak
     output_arr = input_arr.copy()
     for i in range(1, len(output_arr)):
         j = i
-        while j >= 1 and output_arr[j] <= output_arr[ j -1]:
+        while j >= 1 and output_arr[j] <= output_arr[j - 1]:
             temp = output_arr[j]
             output_arr[j] = output_arr[ j -1]
             output_arr[ j -1] = temp
@@ -66,3 +66,58 @@ def max_heapify(arr, n, i):
         arr[largest] = arr[i]
         arr[i] = temp
         max_heapify(arr, n, largest)
+
+
+def counting_sort(arr, key_max=None) -> list:  # Assuming the key is the input itself
+    if key_max is None:  # Adds to the time complexity.
+        key_max = max(arr)
+    n = len(arr)
+    output = []
+    k = [0 for _ in range(key_max + 1)]
+    for i in range(n):
+        k[arr[i]] += 1
+    for i in range(len(k)):
+        for j in range(k[i]):
+            output.append(i)
+    return output
+
+
+def counting_sort_for_radix_sort(arr, max_key=None):
+    output = []
+    n = len(arr)
+    if max_key is None:
+        k = [[] for _ in range(10)]
+    else:
+        k = [[] for _ in range(max_key+1)]
+    for i in range(n):
+        elem = arr[i]
+        if k[elem.key] is None:
+            k[elem.key] = [elem]
+        else:
+            k[elem.key].append(elem)
+    for i in range(len(k)):
+        if k[i] is None:
+            continue
+        for val in k[i]:
+            output.append(val)
+    return output
+
+
+def radix_sort(arr, arr_max=None) -> list:
+    if arr_max is None:
+        arr_max = max(arr)
+    inp = [RadixStruct(1, v) for v in arr]
+    n = len(arr)
+    divisor = 1
+    while arr_max > 0:
+        out = counting_sort_for_radix_sort(inp)
+        divisor = divisor*10
+        arr_max = arr_max//10
+        inp = [RadixStruct(divisor, v.value) for v in out]
+    return [v.value for v in out]
+
+
+class RadixStruct:
+    def __init__(self, divisor, value):
+        self.key = (value//divisor) % 10
+        self.value = value
