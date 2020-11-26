@@ -21,11 +21,11 @@ def sorter_tester():
 
 
 def string_tester():
-    inp = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(100000))
+    inp = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(1000000))
     inp_len = len(inp)
-    pattern = inp[inp_len - 5:inp_len - 1]
+    pattern = inp[inp_len - 100:inp_len - 1]
     start = datetime.now()
-    match = matchers.karp_rabin(inp, pattern)
+    match = matchers.string_match(inp, pattern)
     end = datetime.now()
     if match:
         print(f"Pattern exists in input.")

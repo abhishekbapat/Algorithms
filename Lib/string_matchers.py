@@ -15,7 +15,8 @@ class RollingHash:
         if self._window_end + 1 >= self._text_size:
             return False
         # recalculate hash
-        self.hash = (self.hash * self._a - ((ord(self._inp[self._window_start]) * (self._a ** self._window_size)) % self._m)
+        self.hash = (self.hash * self._a - (
+                    (ord(self._inp[self._window_start]) * (self._a ** self._window_size)) % self._m)
                      + ord(self._inp[self._window_end + 1])) % self._m
         # update start and end
         self._window_start += 1
@@ -43,3 +44,8 @@ def karp_rabin(text, pattern) -> bool:
         if not obj.roll_window():
             break
     return False
+
+
+def string_match(text, pattern) -> bool:  # brute force. Don't know why but currently runs faster than karp-rabin. LOL.
+    return any(all(pattern[j] == text[i: i + len(pattern)][j] for j in range(len(pattern)))
+               for i in range(len(text) - len(pattern)))
