@@ -8,7 +8,7 @@ def breadth_first_search(s, adj):
         next_nodes = []
         for u in frontier:
             for v in adj[u]:
-                if v in level:
+                if v not in level.keys():
                     level[v] = i
                     parent[v] = u
                     next_nodes.append(v)
