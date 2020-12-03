@@ -1,7 +1,11 @@
+import random
+import string
+import math
 from datetime import datetime
-import random, string
+
 import Lib.sorters as sorters
 import Lib.string_matchers as matchers
+import Lib.graph_search as searchers
 
 
 def sorter_tester():
@@ -17,7 +21,7 @@ def sorter_tester():
     print(f"End time: {end}")
     print(f"Input: {inp}")
     print(f"Output {ans}")
-    print(f"Time taken: {end-start}")
+    print(f"Time taken: {end - start}")
 
 
 def string_tester():
@@ -37,7 +41,18 @@ def string_tester():
     print(f"Time taken: {end - start}")
 
 
+def graph_tester():
+    adj = {'a': {'b': 10, 'c': 3}, 'b': {'c': 1, 'd': 2}, 'c': {'a': 2, 'b': 4, 'd': 8, 'e': 2}, 'd': {'e': 7},
+           'e': {'d': 9}}
+    initial_point = 'a'
+    q = {'a': 0, 'b': math.inf, 'c': math.inf, 'd': math.inf, 'e': math.inf}  # node having 0 as value will be
+    # treated as starting point
+    ans = searchers.dijkstra(q, adj)
+    print(f"Ans: {ans}")
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # sorter_tester()
-    string_tester()
+    # string_tester()
+    graph_tester()
